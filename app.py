@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_bootstrap import Bootstrap
 from src.auth import auth_user, register_user
+import json
 
 
 app = Flask(__name__)
@@ -20,7 +21,14 @@ def success():
 
 @app.route('/tracker')
 def tracker():
-    return render_template('tracker.html')
+    with open('symptom_data.json', 'r') as f:
+        symptom_data = json.load(f)
+    symptoms = []
+    for category in symptom_data:
+        for symptom in symptom_data[category]:
+            symptoms.append(symptom.lower())
+    symptoms.sort()
+    return render_template('tracker.html', symptoms=symptoms)
 
 @app.route('/log')
 def log():

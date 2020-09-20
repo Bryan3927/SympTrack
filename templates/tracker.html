@@ -8,10 +8,9 @@
         <h5>Symptom you'd like to track:</h5>
         <select class="form-control" id="symptoms" name="symptoms">
             <option value=""></option>
-            <option value="cough">Cough</option>
-            <option value="headache">Headache</option>
-            <option value="stomach cramps">Stomach Cramps</option>
-            <option value="fatigue">Fatigue</option>
+            {% for symptom in symptoms %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
         </select>
 
         <br></br>
