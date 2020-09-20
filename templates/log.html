@@ -3,5 +3,19 @@
 {% block content %}
 <div class="container text-center">
     <h3>Log</h3>
+    <table>
+        <tr>
+            <th>Symptom</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+        {% for symptom_data in symptoms %}
+            <tr>
+                <td>symptom_data[1]</td>
+                <td>symptom_data[2]</td>
+                <td>symptom_data[3]</td>
+            </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}
