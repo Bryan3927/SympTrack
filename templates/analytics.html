@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h3>Enter symptom information</h3>
+    <br>
+    <form action="/analytics" method="POST" class="form-inline">
+        <h5>Analytics for symptom:</h5>
+        <select class="form-control" id="symptoms" name="symptoms" required>
+            <option value=""></option>
+            {% for symptom in symptoms %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+            {% endfor %}
+        </select>
+
+        <br></br>
+        <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+        <br></br>
+    </form>
+
+</div>
+{% endblock %}

@@ -16,6 +16,7 @@ def create_tables():
               '''symptom message_text, '''
               '''date date,'''
               '''time time,'''
+              '''severity integer,'''
               '''notes message_text);''')
 
     conn.commit()
@@ -52,12 +53,12 @@ def create_user(username, password, email):
     return False
 
 
-def add_symptom(username, symptom, date, time, notes):
+def add_symptom(username, symptom, date, time, severity, notes):
     conn = sqlite3.connect(db)
     c = conn.cursor()
 
-    c.execute('''INSERT into symptom_table VALUES (?,?,?,?,?);''',
-              (username, symptom, date, time, notes))
+    c.execute('''INSERT into symptom_table VALUES (?,?,?,?,?,?);''',
+              (username, symptom, date, time, severity, notes))
 
     conn.commit()
     conn.close()
@@ -71,6 +72,19 @@ def find_symptoms(username):
 
     symptoms = c.execute('''SELECT * FROM symptom_table WHERE username=?;''',
                          (username,)).fetchall()
+
+    conn.commit()
+    conn.close()
+
+    return symptoms
+
+
+def find_data_for_symptom(username, symptom):
+    conn = sqlite3.connect(db)
+    c = conn.cursor()
+
+    symptoms = c.execute('''SELECT * FROM symptom_table WHERE username=? AND symptom=?;''',
+                         (username, symptom)).fetchall()
 
     conn.commit()
     conn.close()
