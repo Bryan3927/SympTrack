@@ -11,11 +11,3 @@ def auth_user(username, password):
 
 def register_user(username, password, email):
     return create_user(username, password, email)
-
-
-def register_symptom(username, symptom, date, time):
-    return add_symptom(username, symptom, date, time)
-
-
-def get_symptoms(username):
-    return find_symptoms(username)

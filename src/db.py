@@ -15,7 +15,8 @@ def create_tables():
               '''username message_text, '''
               '''symptom message_text, '''
               '''date date,'''
-              '''time time);''')
+              '''time time,'''
+              '''notes message_text);''')
 
     conn.commit()
     conn.close()
@@ -51,12 +52,12 @@ def create_user(username, password, email):
     return False
 
 
-def add_symptom(username, symptom, date, time):
+def add_symptom(username, symptom, date, time, notes):
     conn = sqlite3.connect(db)
     c = conn.cursor()
 
-    c.execute('''INSERT into symptom_table VALUES (?,?,?,?);''',
-              (username, symptom, date, time))
+    c.execute('''INSERT into symptom_table VALUES (?,?,?,?,?);''',
+              (username, symptom, date, time, notes))
 
     conn.commit()
     conn.close()

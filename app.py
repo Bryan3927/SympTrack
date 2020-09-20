@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 from flask_bootstrap import Bootstrap
-from src.auth import auth_user, register_user, register_symptom, get_symptoms
+from src.auth import auth_user, register_user
+from src.track import register_symptom, get_symptoms
 import json
 
 
@@ -35,16 +36,16 @@ def tracker():
         symptom = request.form['symptoms']
         date = request.form['date']
         time = request.form['time']
+        notes = request.form['notes']
 
         if not session.get('logged_in'):
             return redirect('/error')
 
         username = session['username']
-        success = register_symptom(username, symptom, date, time)
+        success = register_symptom(username, symptom, date, time, notes)
         if not success:
             return redirect('/error')
         return redirect('/success')
-
 
 
 @app.route('/log')
@@ -54,6 +55,7 @@ def log():
     username = session['username']
     symptoms = get_symptoms(username)
     return render_template('log.html', symptoms=symptoms)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -94,6 +96,7 @@ def register():
             return redirect('/register')
     else:
         return redirect('/error')
+
 
 @app.route('/logout')
 def logout():
