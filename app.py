@@ -95,6 +95,12 @@ def register():
     else:
         return redirect('/error')
 
+@app.route('/logout')
+def logout():
+    if session.get('logged_in'):
+        session['logged_in'] = False
+    return redirect('/')
+
 
 @app.route('/error')
 def error():
