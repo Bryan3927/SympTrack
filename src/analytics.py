@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-from.db import find_data_for_symptom
+from .db import find_data_for_symptom
 
 
 def build_figure(username, symptom):
