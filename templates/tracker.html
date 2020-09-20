@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container text-center">
-    <h3>Tracker</h3>
+<div class="container">
+    <h3>Enter symptom information</h3>
+    <br>
+    <form action="/track" method="POST" class="form-inline">
+        <h5>Symptom you'd like to track:</h5>
+        <select class="form-control" id="symptoms" name="symptoms">
+            <option value=""></option>
+            <option value="cough">Cough</option>
+            <option value="headache">Headache</option>
+            <option value="stomach cramps">Stomach Cramps</option>
+            <option value="fatigue">Fatigue</option>
+        </select>
+
+        <br></br>
+        <h5>Date</h5>
+        <input type="date" class="form-control" value="" placeholder="date" name="date">
+        <br></br>
+        <h5>Time</h5>
+        <input type="time" class="form-control" value="" placeholder="time" name="time">
+
+        <br></br>
+        <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
+    </form>
+
 </div>
 {% endblock %}
