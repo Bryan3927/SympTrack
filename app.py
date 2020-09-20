@@ -22,11 +22,13 @@ def list_symptoms():
 
 @app.route('/')
 def hello_world():
+    if session.get('logged_in'):
+        return redirect('/dashboard')
     return render_template('index.html')
 
 
-@app.route('/success')
-def success():
+@app.route('/dashboard')
+def dashboard():
     if not session.get('logged_in'):
         return redirect('/')
 
@@ -52,7 +54,7 @@ def tracker():
         success = register_symptom(username, symptom, date, time, severity, notes)
         if not success:
             return redirect('/error')
-        return redirect('/success')
+        return redirect('/dashboard')
 
 
 @app.route('/log')
