@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+    <h1>Register</h1>
+
+        <form action="/register" method="POST">
+            <h5><strong>Username</strong></h5>
+            <input type="text" id="inputUsername" class="form-control login-field" value="" placeholder="username" name="username">
+
+            <h5><strong>Password</strong></h5>
+            <input type="password" class="form-control login-field" value="" placeholder="password" name="password">
+            <h5><strong>Email</strong></h5>
+            <input type="text" class="form-control login-field" value="" placeholder="email" name="email">
+            <h5><strong></strong></h5>
+            <input type="submit" value="Register" class="btn btn-primary btn-lg btn-block">
+        </form>
+
+        <h2>{% with messages = get_flashed_messages() %}
+               {% if messages %}
+                  {% for message in messages %}
+                     {{ message }}
+                  {% endfor %}
+               {% endif %}
+            {% endwith %}
+        </h2>
+    </div>
+{% endblock %}
