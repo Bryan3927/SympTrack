@@ -11,6 +11,12 @@ def create_tables():
               '''password message_text, '''
               '''email message_text);''')
 
+    c.execute('''CREATE TABLE IF NOT EXISTS symptom_table ('''
+              '''username message_text, '''
+              '''symptom message_text, '''
+              '''date date,'''
+              '''time time);''')
+
     conn.commit()
     conn.close()
 
@@ -43,6 +49,32 @@ def create_user(username, password, email):
     if not user:
         return True
     return False
+
+
+def add_symptom(username, symptom, date, time):
+    conn = sqlite3.connect(db)
+    c = conn.cursor()
+
+    c.execute('''INSERT into symptom_table VALUES (?,?,?,?);''',
+              (username, symptom, date, time))
+
+    conn.commit()
+    conn.close()
+
+    return True
+
+
+def find_symptoms(username):
+    conn = sqlite3.connect(db)
+    c = conn.cursor()
+
+    symptoms = c.execute('''SELECT * FROM symptom_table WHERE username=?;''',
+                         (username,)).fetchall()
+
+    conn.commit()
+    conn.close()
+
+    return symptoms
 
 
 if __name__ == '__main__':
