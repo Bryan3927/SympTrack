@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from flask_bootstrap import Bootstrap
 from src.auth import auth_user, register_user
-from src.track import register_symptom, get_symptoms
+from src.track import register_symptom, get_symptoms, delete_user_data
 from src.analytics import build_figure
 import json
 
@@ -42,8 +42,7 @@ def tracker():
         return render_template('tracker.html', symptoms=symptoms)
     elif request.method == 'POST':
         symptom = request.form['symptoms']
-        date = request.form['date']
-        time = request.form['time']
+        datetime = request.form['datetime']
         severity = request.form['severity']
         notes = request.form['notes']
 
@@ -51,7 +50,7 @@ def tracker():
             return redirect('/error')
 
         username = session['username']
-        success = register_symptom(username, symptom, date, time, severity, notes)
+        success = register_symptom(username, symptom, datetime, severity, notes)
         if not success:
             return redirect('/error')
         return redirect('/dashboard')
@@ -66,6 +65,16 @@ def log():
 
     return render_template('log.html', symptoms=symptoms)
 
+@app.route('/deleted', methods=['POST'])
+def deleted():
+    if not session.get('logged_in'):
+        return redirect('/error')
+    if request.method == 'POST':
+        username = session['username']
+        success = delete_user_data(username)
+        if not success:
+            return redirect('/error')
+        return redirect('/log')
 
 @app.route('/analytics', methods=['GET', 'POST'])
 def analytics():

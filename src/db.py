@@ -53,12 +53,12 @@ def create_user(username, password, email):
     return False
 
 
-def add_symptom(username, symptom, date, time, severity, notes):
+def add_symptom(username, symptom, datetime, severity, notes):
     conn = sqlite3.connect(db)
     c = conn.cursor()
 
-    c.execute('''INSERT into symptom_table VALUES (?,?,?,?,?,?);''',
-              (username, symptom, date, time, severity, notes))
+    c.execute('''INSERT into symptom_table VALUES (?,?,?,?,?);''',
+              (username, symptom, datetime, severity, notes))
 
     conn.commit()
     conn.close()
@@ -91,6 +91,16 @@ def find_data_for_symptom(username, symptom):
 
     return symptoms
 
+def delete_all_user_symptoms(username):
+    conn = sqlite3.connect(db)
+    c = conn.cursor()
+    
+    c.execute('''DELETE FROM symptom_table WHERE username=?''', (username,))
+
+    conn.commit()
+    conn.close()
+
+    return True
 
 if __name__ == '__main__':
     create_tables()

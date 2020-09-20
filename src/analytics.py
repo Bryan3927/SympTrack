@@ -7,12 +7,12 @@ from .db import find_data_for_symptom
 
 def build_figure(username, symptom):
     data = find_data_for_symptom(username, symptom)
-    df = pd.DataFrame(data, columns=['username', 'symptom', 'date', 'time', 'severity', 'notes'])
-    df = df.sort_values('date')
+    df = pd.DataFrame(data, columns=['username', 'symptom', 'datetime', 'severity', 'notes'])
+    df = df.sort_values('datetime')
     df = df.reset_index(drop=True)
 
-    plt.plot(df['date'], df['severity'])
-    plt.xlabel('date')
+    plt.plot(df['datetime'], df['severity'])
+    plt.xlabel('date/time')
     plt.ylabel('severity')
 
     filename = f'{username}-{symptom}.png'
