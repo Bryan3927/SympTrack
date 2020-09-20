@@ -71,7 +71,7 @@ def find_symptoms(username):
     c = conn.cursor()
 
     symptoms = c.execute('''SELECT * FROM symptom_table WHERE username=?;''',
-                         (username,)).fetchall()
+                         (username, )).fetchall()
 
     conn.commit()
     conn.close()
