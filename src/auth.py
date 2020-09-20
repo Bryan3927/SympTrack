@@ -11,3 +11,10 @@ def auth_user(username, password):
 
 def register_user(username, password, email):
     return create_user(username, password, email)
+
+
+def register_symptom(username, symptom, date, time):
+    '''
+    TODO create new table function to add symptom to db
+    '''
+    pass
