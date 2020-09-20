@@ -103,7 +103,7 @@ def login():
         if user:
             session['username'] = user.username
             session['logged_in'] = True
-            return redirect('/success')
+            return redirect('/dashboard')
         else:
             flash('Invalid username or password')
             return redirect('/login')
