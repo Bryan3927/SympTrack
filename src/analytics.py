@@ -6,14 +6,17 @@ from .db import find_data_for_symptom
 
 
 def build_figure(username, symptom):
-    print('AAAAAAA')
-    print(os.getcwd())
     data = find_data_for_symptom(username, symptom)
     df = pd.DataFrame(data, columns=['username', 'symptom', 'date', 'time', 'severity', 'notes'])
-    filename = f'{username}-{symptom}.png'
     plt.plot(df['date'], df['severity'])
     plt.xlabel('date')
     plt.ylabel('severity')
+
+    filename = f'{username}-{symptom}.png'
+
+    if os.path.isfile(filename):
+        os.remove(filename)
+
     plt.savefig(f'{os.getcwd()}/static/images/{filename}')
 
     return filename
