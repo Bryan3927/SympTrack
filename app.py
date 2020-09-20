@@ -18,6 +18,13 @@ def success():
 
     return render_template('dashboard.html', username=session['username'])
 
+@app.route('/tracker')
+def tracker():
+    return render_template('tracker.html')
+
+@app.route('/log')
+def log():
+    return render_template('log.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
