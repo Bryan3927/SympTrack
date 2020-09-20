@@ -39,11 +39,11 @@ def tracker():
         if not session.get('logged_in'):
             return redirect('/error')
 
-        username = session.get('username')
+        username = session['username']
         success = register_symptom(username, symptom, date, time)
         if not success:
-            redirect('/error')
-        redirect('/success')
+            return redirect('/error')
+        return redirect('/success')
 
 
 
